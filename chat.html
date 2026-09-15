@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="de-DE"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Chat-Bot | Mesopotamia Neuhaus</title>
+<style>body{font-family:Segoe UI,system-ui,sans-serif;background:#140e0a;color:#f6ecd8;margin:0}header{padding:.9rem 1rem;border-bottom:1px solid #3a2a1c}a{color:#d4a24a}h1{font-size:1.15rem;margin:.2rem 0 0}#log{max-width:720px;margin:0 auto;padding:1rem 1rem 6rem;display:flex;flex-direction:column;gap:.55rem}.b,.u{max-width:85%;padding:.7rem .85rem;border-radius:14px;line-height:1.45}.b{background:#23180f;border:1px solid #3a2a1c;align-self:flex-start}.u{background:#3a2a14;align-self:flex-end}form{position:fixed;bottom:0;left:0;right:0;display:flex;gap:.5rem;padding:.7rem;background:#140e0ae8;border-top:1px solid #3a2a1c}input{flex:1;padding:.7rem;border-radius:12px;border:1px solid #3a2a1c;background:#1b130d;color:#f6ecd8}button{background:#d4a24a;border:0;border-radius:12px;font-weight:700;padding:.7rem 1rem}.note{color:#cbbca6;font-size:.85rem}</style></head>
+<body><header><a href="./">← Start</a><h1>Chat-Bot Mesopotamia</h1><p class="note">Erst JA. STOP · LÖSCHEN · AUSKUNFT. Kein Server.</p></header>
+<div id="log"></div><form id="f"><input id="q" autocomplete="off" placeholder="Schreiben …"/><button>Senden</button></form>
+<script>
+const log=document.getElementById('log');
+const state={ok:false,step:'consent',mode:'',name:'',tel:'',addr:'',items:[],when:''};
+function say(t){const d=document.createElement('div');d.className='b';d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight;}
+function me(t){const d=document.createElement('div');d.className='u';d.textContent=t;log.appendChild(d);}
+function resetChat(){Object.assign(state,{ok:false,step:'consent',mode:'',name:'',tel:'',addr:'',items:[],when:''});}
+function reply(raw){
+ const t=raw.trim(); const u=t.toLowerCase(); if(!t) return;
+ if(/^(stop|stopp|widerspruch)$/.test(u)){say('Bot aus. Keine Werbung.');state.step='stop';return;}
+ if(/^(löschen|loeschen|löschung)$/.test(u)){resetChat();say('Chatdaten gelöscht. Für neu: JA.');return;}
+ if(/^auskunft$/.test(u)){say('Einwilligung '+(state.ok?'ja':'nein')+', Schritt '+state.step+(state.name?', Name '+state.name:''));return;}
+ if(!state.ok){if(/^ja$/.test(u)){state.ok=true;state.step='mode';say('Abholung oder Lieferung?');}else say('Mesopotamia Neuhaus. Nur Bestellung, keine Werbung. Schreiben Sie JA. STOP / LÖSCHEN / AUSKUNFT.');return;}
+ if(state.step==='mode'){if(/liefer/.test(u)){state.mode='lieferung';state.step='name';say('Lieferung. Ihr Name?');}else if(/abhol/.test(u)){state.mode='abholung';state.step='name';say('Abholung Sonneberger Straße 28. Ihr Name?');}else say('Bitte Abholung oder Lieferung.');return;}
+ if(state.step==='name'){state.name=t;state.step='tel';say('Telefon?');return;}
+ if(state.step==='tel'){state.tel=t;state.step=state.mode==='lieferung'?'addr':'items';say(state.step==='addr'?'Straße und Ort?':'Gerichte mit Nummer oder Name?');return;}
+ if(state.step==='addr'){state.addr=t;state.step='items';say('Welche Gerichte?');return;}
+ if(state.step==='items'){if(/fertig|ok|weiter/.test(u)&&state.items.length){state.step='when';say('Wunschzeit?');return;}state.items.push(t);say('Notiert: '+t+'. Noch etwas oder FERTIG?');return;}
+ if(state.step==='when'){state.when=t;const msg=['JA – Chat-Bestellung','Name: '+state.name,'Tel: '+state.tel,state.mode==='lieferung'?'Lieferung: '+state.addr:'Abholung Sonneberger Str. 28','Zeit: '+state.when,'---',...state.items].join('\n');say('Zusammenfassung:\n'+msg);const p=document.createElement('div');p.className='b';p.innerHTML='<a href="https://wa.me/491602551000?text='+encodeURIComponent(msg)+'">WhatsApp</a> · <a href="tel:+493679700501">Anrufen</a> · <a href="./telefon.html">Telefon-Bot</a>';log.appendChild(p);}
+}
+say('Mesopotamia Chat-Bot. Schreiben Sie JA.');
+document.getElementById('f').onsubmit=e=>{e.preventDefault();const v=document.getElementById('q').value;document.getElementById('q').value='';me(v);reply(v);};
+</script></body></html>
