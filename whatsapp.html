@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WhatsApp-Bestellung | Mesopotamia Neuhaus</title>
+  <link rel="canonical" href="https://realsyncdynamics-spec.github.io/mesopotamia-neuhaus/whatsapp.html" />
+  <style>
+    body{font-family:Segoe UI,system-ui,sans-serif;background:#140e0a;color:#f6ecd8;line-height:1.5;margin:0}
+    main{max-width:640px;margin:0 auto;padding:1.6rem 1.1rem 3rem}a{color:#d4a24a}h1,h2{color:#d4a24a}
+    .note{color:#cbbca6}.box{background:#23180f;border:1px solid #3a2a1c;border-radius:16px;padding:1.1rem;margin-top:1rem}
+    .btn{display:inline-block;margin-top:.9rem;background:#d4a24a;color:#1a120c;font-weight:700;padding:.75rem 1.1rem;border-radius:999px;text-decoration:none}
+    .ghost{background:transparent;color:#f6ecd8;border:1px solid #d4a24a;margin-left:.4rem}
+    label{display:flex;gap:.6rem;align-items:flex-start;margin-top:.9rem;color:#cbbca6}
+    .btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+  </style>
+</head>
+<body>
+<main>
+  <p><a href="./">← Startseite</a></p>
+  <h1>WhatsApp-Bot mit DSGVO-Komfort</h1>
+  <p class="note">Erst Einwilligung, dann Chat. Nummer 0160 2551000.</p>
+  <div class="box">
+    <h2>Was der Bot darf</h2>
+    <p class="note">Nur Bestellung, Abholung oder Lieferung. Keine Werbung, keine Liefer-App.</p>
+    <p class="note">Daten: WhatsApp-Nummer, Bestellzeilen, Lieferadresse, Wunschzeit. Speicherung bis die Bestellung erledigt ist. Meta sieht den Chat als Plattform.</p>
+    <p class="note">Im Chat: STOP · LÖSCHEN · AUSKUNFT</p>
+    <label><input type="checkbox" id="ok" /><span>Ich will über WhatsApp bestellen und habe die <a href="./datenschutz.html">Datenschutzhinweise</a> gelesen (Art. 6 Abs. 1 lit. a und b DSGVO).</span></label>
+    <a class="btn" id="go" href="#" aria-disabled="true">WhatsApp öffnen</a>
+    <a class="btn ghost" href="tel:+493679700501">Lieber anrufen</a>
+  </div>
+</main>
+<script>
+const ok=document.getElementById('ok'),go=document.getElementById('go');
+const text=encodeURIComponent('JA – Bestellung Mesopotamia Neuhaus. Datenschutz gelesen. STOP / LÖSCHEN / AUSKUNFT jederzeit.');
+const url='https://wa.me/491602551000?text='+text;
+function sync(){if(ok.checked){go.href=url;go.setAttribute('aria-disabled','false');}else{go.href='#';go.setAttribute('aria-disabled','true');}}
+ok.addEventListener('change',sync);
+go.addEventListener('click',e=>{if(!ok.checked)e.preventDefault();});
+</script>
+</body></html>
