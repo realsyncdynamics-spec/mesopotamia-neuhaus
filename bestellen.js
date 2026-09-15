@@ -1,0 +1,25 @@
+const MENU = [{"id":"A","cat":"Vegetarisch","name":"Drehspieß vegetarisch","p":5,"p29":null},{"id":"1","cat":"Drehspieß","name":"Drehspieß Kebab","p":7,"p29":null},{"id":"1A","cat":"Drehspieß","name":"Gemüsedrehspieß","p":7.5,"p29":null},{"id":"1B","cat":"Drehspieß","name":"BBQ Drehspieß","p":7,"p29":null},{"id":"1C","cat":"Drehspieß","name":"Chili Cheese Drehspieß","p":7.5,"p29":null},{"id":"19","cat":"Pizza & Pide","name":"Pizza Margherita","p":6.5,"p29":7.5},{"id":"33b","cat":"Pizza & Pide","name":"Pizza BBQ","p":9.5,"p29":10.5},{"id":"38","cat":"Pizza & Pide","name":"Pizza Neuhaus","p":9.5,"p29":10.5},{"id":"49","cat":"Pizza & Pide","name":"Familien-Pizza 60 cm","p":30,"p29":null},{"id":"50","cat":"Lahmacun","name":"Lahmacun","p":7.5,"p29":null}];
+console.warn('Bitte bestellen.js vollständig aus artifacts/bestellen.js ersetzen');
+const ZONES={neuhaus:{min:15,fee:1},lichte:{min:20,fee:2},schmiede:{min:25,fee:3},steinheid:{min:30,fee:3},scheibe:{min:40,fee:4},steinach:{min:40,fee:4}};
+const cart=JSON.parse(sessionStorage.getItem('mesoCart')||'{}');
+const $=id=>document.getElementById(id);
+function euro(n){return n.toFixed(2).replace('.',',')+' \u20ac';}
+function save(){sessionStorage.setItem('mesoCart',JSON.stringify(cart));renderBar();if($('cartLines'))renderCart();}
+function key(m){return m.id+'|'+m.name+(m.p29?'|26':'');}
+function key29(m){return m.id+'|'+m.name+'|29';}
+function priceOf(k){const m=MENU.find(x=>key(x)===k||key29(x)===k);if(!m)return 0;return k.endsWith('|29')&&m.p29?m.p29:m.p;}
+function subtotal(){return Object.entries(cart).reduce((s,[k,q])=>s+priceOf(k)*q,0);}
+function count(){return Object.values(cart).reduce((a,b)=>a+b,0);}
+function add(id,d){const n=(cart[id]||0)+d;if(n<=0)delete cart[id];else cart[id]=n;save();renderList();}
+function renderBar(){$('badge').textContent=count();$('sum').textContent=euro(subtotal())+' \u00b7 '+count()+' St\u00fcck';}
+function renderList(){const q=$('q').value.trim().toLowerCase();const cat=document.querySelector('.cats button.on')?.dataset.cat||'';const list=$('list');list.innerHTML='';let last='';MENU.forEach(m=>{if(cat&&m.cat!==cat)return;if(q&&!(m.id+' '+m.name+' '+m.cat).toLowerCase().includes(q))return;if(m.cat!==last){const h=document.createElement('h2');h.textContent=m.cat;list.appendChild(h);last=m.cat;}const wrap=document.createElement('div');wrap.className='item';const k=key(m);wrap.innerHTML='<div><span class="id">'+m.id+'</span><span class="name">'+m.name+'</span></div><div class="qty"><span class="price">'+euro(m.p)+'</span><button type="button" data-a="'+k+'">+</button>'+(m.p29?'<button type="button" class="ghost" data-a="'+key29(m)+'">29</button>':'')+'</div>';list.appendChild(wrap);});}
+function renderCats(){const cats=[...new Set(MENU.map(m=>m.cat))];$('cats').innerHTML='<button class="on" data-cat="">Alle</button>'+cats.map(c=>'<button data-cat="'+c+'">'+c+'</button>').join('');$('cats').onclick=e=>{const b=e.target.closest('button');if(!b)return;[...$('cats').children].forEach(x=>x.classList.toggle('on',x===b));renderList();};}
+function renderCart(){const lines=Object.entries(cart).map(([k,q])=>q+'\u00d7 '+k.replaceAll('|',' ')+' = '+euro(priceOf(k)*q));$('cartLines').innerHTML=lines.join('<br>')||'Warenkorb leer';const mode=$('mode').value;const z=ZONES[$('zone').value];const fee=mode==='lieferung'?z.fee:0;const min=mode==='lieferung'?z.min:0;const sub=subtotal();$('totals').textContent='Summe '+euro(sub+fee)+(min?' \u00b7 Mindest '+euro(min):'');$('err').textContent=!count()?'Bitte Gerichte w\u00e4hlen.':(mode==='lieferung'&&sub<min?'Mindestbestellwert nicht erreicht.':'');}
+$('q').oninput=renderList;
+$('list').onclick=e=>{const b=e.target.closest('[data-a]');if(b)add(b.dataset.a,1);};
+$('mode').onchange=()=>{const l=$('mode').value==='lieferung';$('zoneWrap').style.display=$('addrWrap').style.display=l?'block':'none';renderCart();};
+$('zone').onchange=renderCart;
+$('openCart').onclick=$('goCheck').onclick=()=>{$('dlg').showModal();renderCart();};
+$('close').onclick=()=>$('dlg').close();
+$('send').onclick=()=>{renderCart();if(!$('ok').checked){$('err').textContent='Bitte Datenschutz best\u00e4tigen.';return;}if($('err').textContent)return;if(!$('name').value.trim()||!$('tel').value.trim()){$('err').textContent='Name und Telefon n\u00f6tig.';return;}if($('mode').value==='lieferung'&&!$('addr').value.trim()){$('err').textContent='Adresse n\u00f6tig.';return;}const fee=$('mode').value==='lieferung'?ZONES[$('zone').value].fee:0;const lines=Object.entries(cart).map(([k,q])=>q+'x '+k.replaceAll('|',' ')+' '+euro(priceOf(k)*q));const text=['JA - Online-Bestellung Mesopotamia Neuhaus','Name: '+$('name').value.trim(),'Tel: '+$('tel').value.trim(),$('mode').value==='lieferung'?'Lieferung: '+$('addr').value.trim():'Abholung Sonneberger Str. 28',$('when').value?'Zeit: '+$('when').value:'','---',...lines,'Summe: '+euro(subtotal()+fee),'STOP / LOESCHEN / AUSKUNFT'].filter(Boolean).join('\n');sessionStorage.removeItem('mesoCart');location.href='https://wa.me/491602551000?text='+encodeURIComponent(text);};
+renderCats();renderList();renderBar();
