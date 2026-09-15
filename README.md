@@ -1,8 +1,10 @@
 # Mesopotamia Neuhaus am Rennweg
 
-Landingpage für Mesopotamia Döner-Pizza-Kebap-Haus, Sonneberger Straße 28, 98724 Neuhaus am Rennweg.
+Landingpage mit Speisekarte für Mesopotamia Döner-Pizza-Kebap-Haus,
+Sonneberger Straße 28, 98724 Neuhaus am Rennweg.
 
-Geplante Live-URL:
+Live:
 https://realsyncdynamics-spec.github.io/mesopotamia-neuhaus/
 
-Pages: Settings → Pages → Source = GitHub Actions.
+Quelle der Karte: gedruckter Flyer / Speisekarte ab Mai 2026.
+Preise ohne Gewähr.
