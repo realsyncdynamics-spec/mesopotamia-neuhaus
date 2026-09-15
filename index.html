@@ -4,45 +4,69 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mesopotamia Neuhaus am Rennweg | Döner, Pizza, WhatsApp</title>
+  <meta name="description" content="Mesopotamia Neuhaus: Speisekarte, Lieferung, WhatsApp mit DSGVO-Komfort. Sonneberger Straße 28." />
   <link rel="canonical" href="https://realsyncdynamics-spec.github.io/mesopotamia-neuhaus/" />
   <style>
-    body{font-family:Segoe UI,system-ui,sans-serif;background:#140e0a;color:#f6ecd8;line-height:1.5;margin:0}
-    a{color:#d4a24a;text-decoration:none}
-    header{padding:2rem 1.15rem;background:linear-gradient(180deg,rgba(20,12,8,.45),rgba(20,12,8,.92)),url('https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=1600&q=80') center/cover}
-    h1{font-size:clamp(2rem,6vw,3.2rem)}h2{color:#d4a24a}
-    .sub,.note{color:#cbbca6}
-    .cta{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1.2rem}
-    .btn{background:#d4a24a;color:#1a120c;font-weight:700;padding:.72rem 1.05rem;border-radius:999px}
-    .ghost{background:transparent;color:#f6ecd8;border:1px solid #d4a24a}
-    main{max-width:720px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
-    .box{background:#23180f;border:1px solid #3a2a1c;border-radius:16px;padding:1.05rem;margin-top:1rem}
-    footer{text-align:center;color:#8a7a66;font-size:.8rem;padding:1.6rem 1rem}
+    :root{--bg:#140e0a;--card:#23180f;--gold:#d4a24a;--cream:#f6ecd8;--muted:#cbbca6;--line:#3a2a1c}
+    body{font-family:Segoe UI,system-ui,sans-serif;background:var(--bg);color:var(--cream);line-height:1.5;margin:0}
+    a{color:var(--gold);text-decoration:none}
+    header{min-height:52vh;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem 1.15rem 2.2rem;background:linear-gradient(180deg,rgba(20,12,8,.45),rgba(20,12,8,.92)),url('https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=1600&q=80') center/cover}
+    h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.08}h2{color:var(--gold)}
+    .sub,.note{color:var(--muted)}
+    .cta{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1.1rem}
+    .btn{background:var(--gold);color:#1a120c;font-weight:700;padding:.72rem 1.05rem;border-radius:999px;display:inline-block}
+    .ghost{background:transparent;color:var(--cream);border:1px solid var(--gold)}
+    main{max-width:760px;margin:0 auto;padding:1.3rem 1.1rem 3rem}
+    .box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.05rem 1.15rem;margin-top:1rem}
+    table{width:100%;border-collapse:collapse}
+    td{padding:.38rem 0;border-bottom:1px solid var(--line)}
+    td:last-child{text-align:right;color:#e8c97a}
+    footer{text-align:center;color:#8a7a66;font-size:.8rem;padding:1.5rem 1rem;border-top:1px solid var(--line)}
   </style>
 </head>
 <body>
 <header>
-  <p>Neuhaus am Rennweg</p>
-  <h1>Mesopotamia – Döner, Pizza & Pasta</h1>
-  <p class="sub">Sonneberger Straße 28. Telefon, WhatsApp mit DSGVO-Komfort, Abholung, Lieferung.</p>
+  <p>Neuhaus am Rennweg · Fußgängerzone</p>
+  <h1>Mesopotamia – Döner, Pizza &amp; Pasta</h1>
+  <p class="sub">Sonneberger Straße 28. Karte, Lieferung, WhatsApp nur nach DSGVO-Einwilligung.</p>
   <div class="cta">
     <a class="btn" href="./whatsapp.html">WhatsApp (DSGVO)</a>
+    <a class="btn ghost" href="./karte.html">Speisekarte</a>
     <a class="btn ghost" href="tel:+493679700501">03679 700501</a>
     <a class="btn ghost" href="./datenschutz.html">Datenschutz</a>
   </div>
 </header>
 <main>
-  <section class="box" id="whatsapp">
+  <section class="box">
     <h2>WhatsApp-Bot</h2>
-    <p class="note">Kein Direktlink in den Chat ohne Haken. Erst Datenschutz lesen, dann öffnet WhatsApp mit voreingestelltem <strong>JA</strong>.</p>
-    <p class="note">Im Chat: STOP, LÖSCHEN, AUSKUNFT. Keine Werbung, keine Lieferplattform, keine Kartendaten.</p>
-    <p class="note" style="margin-top:.8rem"><a class="btn" href="./whatsapp.html">Zum DSGVO-Einstieg</a></p>
+    <p class="note">Kein Direktlink in den Chat. Erst Datenschutz lesen und Haken setzen. Danach öffnet 0160 2551000 mit voreingestelltem JA.</p>
+    <p class="note">Befehle: STOP · LÖSCHEN · AUSKUNFT. Keine Werbung, keine Lieferplattform, keine Kartendaten.</p>
   </section>
   <section class="box">
-    <h2>Zeiten</h2>
-    <p class="note">Laden Mo–Fr 10:30–21:00, Sa 11–21, So 15–21. Lieferung Mo–Sa 11–14 und 17–21, So nur 17–21.</p>
+    <h2>Öffnungszeiten</h2>
+    <table>
+      <tr><td>Mo–Fr</td><td>10:30–21:00</td></tr>
+      <tr><td>Sa</td><td>11:00–21:00</td></tr>
+      <tr><td>So &amp; Feiertag</td><td>15:00–21:00</td></tr>
+    </table>
+    <p class="note" style="margin-top:.7rem">Lieferung Mo–Sa 11–14 und 17–21, So nur 17–21.</p>
+  </section>
+  <section class="box">
+    <h2>Lieferung</h2>
+    <table>
+      <tr><td>Neuhaus</td><td>15 € · +1 €</td></tr>
+      <tr><td>Lichte, Ernstthal, Lauscha</td><td>20 € · +2 €</td></tr>
+      <tr><td>Schmiedefeld, Piesau, Oberweißbach, Deesbach</td><td>25 € · +3 €</td></tr>
+      <tr><td>Steinheid, Meuselbach, Cursdorf</td><td>30 € · +3 €</td></tr>
+      <tr><td>Scheibe-Alsbach, Siegmundsburg / Steinach, Katzhütte</td><td>40 € · +4 €</td></tr>
+    </table>
   </section>
 </main>
 <footer>
-  <a href="./datenschutz.html">Datenschutz</a> · <a href="./whatsapp.html">WhatsApp</a> · inoffizielle Info-Seite
+  <a href="./karte.html">Karte</a> ·
+  <a href="./whatsapp.html">WhatsApp</a> ·
+  <a href="./datenschutz.html">Datenschutz</a> ·
+  inoffiziell · Preise ohne Gewähr
 </footer>
-</body></html>
+</body>
+</html>
